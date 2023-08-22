@@ -6,6 +6,11 @@ let yCoordinate = 200; // 例: 200ピクセル
 let xspeed = 3;
 let yspeed = 3;
 
+let up_is_down = false;
+let down_is_down = false;
+let left_is_down = false;
+let right_is_down = false;
+
 document.addEventListener("DOMContentLoaded", function() {
     const inputContainer = document.getElementById("inputContainer");
     const inputField = document.createElement("input");
@@ -22,18 +27,52 @@ document.addEventListener("DOMContentLoaded", function() {
 // キーダウンイベントのリスナーを追加
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp") {
-        console.log("上矢印キーが押されました");
+        up_is_down = true
+    }
+    if (event.key === "ArrowDown") {
+        down_is_down = true
+    }
+    if (event.key === "ArrowLeft") {
+        left_is_down = true
+    }
+    if (event.key === "ArrowRight") {
+        right_is_down = true
+    }
+});
+
+// キーダウンイベントのリスナーを追加
+document.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowUp") {
+        up_is_down = false
+    }
+    if (event.key === "ArrowDown") {
+        down_is_down = false
+    }
+    if (event.key === "ArrowLeft") {
+        left_is_down = false
+    }
+    if (event.key === "ArrowRight") {
+        right_is_down = false
+    }
+});
+
+const loop = () => {
+
+    if (up_is_down){
         yCoordinate -= yspeed
-    } else if (event.key === "ArrowDown") {
-        console.log("下矢印キーが押されました");
+    }
+    if (down_is_down){
         yCoordinate += yspeed
-    } else if (event.key === "ArrowLeft") {
-        console.log("左矢印キーが押されました");
+    }
+    if (left_is_down){
         xCoordinate -= xspeed
-    } else if (event.key === "ArrowRight") {
-        console.log("右矢印キーが押されました");
+    }
+    if (right_is_down){
         xCoordinate += xspeed
     }
+
     inputContainer.style.left = xCoordinate + "px";
     inputContainer.style.top = yCoordinate + "px";
-});
+}
+
+setInterval(loop, 30);
