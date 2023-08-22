@@ -1,1 +1,2 @@
 # super_whiteboard
+真っ白なページの中に自由に文字を
