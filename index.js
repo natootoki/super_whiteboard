@@ -90,6 +90,8 @@ document.addEventListener("keydown", function(event) {
         paragraph.style.top = yCoordinate + zure_y + "px";
         // paragraph.style.left = 0 + "px";
         // paragraph.style.top = 0 + "px";
+
+        console.log(xCoordinate + zure_x, ", ", yCoordinate + zure_y, ", ", field.value)
     }
 });
 
