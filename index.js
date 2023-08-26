@@ -49,6 +49,9 @@ const selectFile = () => {
             // paragraph.style.top = 0 + "px";
         }
         console.log(filerecords)
+
+        const fileset = document.getElementById("select-file");
+        fileset.value = ""
     }
 
     // ファイル読み込みエラー時の処理
