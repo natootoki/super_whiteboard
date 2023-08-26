@@ -14,6 +14,49 @@ let right_is_down = false;
 let zure_x = 0;
 let zure_y = -32;
 
+let filerecords = [];
+let filerecord = "";
+
+const selectFile = () => {
+    // FileListオブジェクト取得
+    const selectFiles = document.querySelector("#select-file").files
+    console.log("Hello, file!")
+
+    // Fileオブジェクト取得
+    const file = selectFiles[0]
+
+    // FileReaderオブジェクト取得
+    const reader = new FileReader()
+    reader.readAsText(file)
+
+    // ファイル読み込み完了時の処理
+    reader.onload = () => {
+        console.log(reader.result)
+        test = reader.result
+        filerecords = test.split("\r\n")
+        //   filetext = test.split("\n")[2].split(",").slice(2).join(",");
+        for (const item of filerecords){
+            const paragraphContainer = document.getElementById("paragraphContainer");
+            const paragraph = document.createElement("span");
+            paragraph.textContent = item.split(",").slice(2).join(",").slice(1, -1);
+            paragraphContainer.appendChild(paragraph);
+    
+            // スタイルを設定して位置を指定
+            paragraph.style.position = "absolute";
+            paragraph.style.left = item.split(",")[0] + "px";
+            paragraph.style.top = item.split(",")[1] + "px";
+            // paragraph.style.left = 0 + "px";
+            // paragraph.style.top = 0 + "px";
+        }
+        console.log(filerecords)
+    }
+
+    // ファイル読み込みエラー時の処理
+    reader.onerror = () => {
+        console.log("ファイル読み込みエラー")
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const inputContainer = document.getElementById("inputContainer");
     const inputField = document.createElement("input");
@@ -39,6 +82,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const paragraph = document.createElement("div");
     paragraph.textContent = field.value;
     paragraphContainer.appendChild(paragraph);
+    const fileset = document.createElement("input");
+    fileset.id = "select-file"
+    fileset.type = "file";
+    fileset.setAttribute("onChange", "selectFile()");
+    paragraphContainer.appendChild(fileset);
 
     paragraphContainer.style.position = "absolute";
     paragraphContainer.style.left = 0 + "px";
