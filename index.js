@@ -17,6 +17,8 @@ let zure_y = -32;
 let filerecords = [];
 let filerecord = "";
 
+let text_list = "";
+
 const selectFile = () => {
     // FileListオブジェクト取得
     const selectFiles = document.querySelector("#select-file").files
@@ -60,6 +62,28 @@ const selectFile = () => {
     }
 }
 
+function OnButtonClick() {
+    let blob = new Blob([text_list],{type:"text/plain"});
+
+    let link = document.createElement('a');
+
+    link.href = URL.createObjectURL(blob);
+
+    let dt = new Date();
+    let y = dt.getFullYear();
+    let m = ("00" + (dt.getMonth()+1)).slice(-2);
+    let d = ("00" + (dt.getDate())).slice(-2);
+    let h = ("00" + (dt.getHours())).slice(-2);
+    let mi = ("00" + (dt.getMinutes())).slice(-2);
+    let s = ("00" + (dt.getSeconds())).slice(-2);
+    let result = y + m + d + h + mi + s;
+
+
+    link.download = 'filename'+result+'.txt';
+
+    link.click();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const inputContainer = document.getElementById("inputContainer");
     const inputField = document.createElement("input");
@@ -85,11 +109,22 @@ document.addEventListener("DOMContentLoaded", function() {
     const paragraph = document.createElement("div");
     paragraph.textContent = field.value;
     paragraphContainer.appendChild(paragraph);
+    
     const fileset = document.createElement("input");
     fileset.id = "select-file"
     fileset.type = "file";
     fileset.setAttribute("onChange", "selectFile()");
     paragraphContainer.appendChild(fileset);
+
+    const br = document.createElement("br");
+    paragraphContainer.appendChild(br);
+
+    const fileget = document.createElement("input");
+    fileget.id = "get-file"
+    fileget.type = "button";
+    fileget.value = "エクスポート";
+    fileget.setAttribute("onClick", "OnButtonClick()");
+    paragraphContainer.appendChild(fileget);
 
     paragraphContainer.style.position = "absolute";
     paragraphContainer.style.left = 0 + "px";
@@ -143,6 +178,14 @@ document.addEventListener("keydown", function(event) {
         // paragraph.style.top = 0 + "px";
 
         console.log(xCoordinate + zure_x, ", ", yCoordinate + zure_y, ", ", field.value)
+        if (text_list != ""){
+            text_list += "\r\n"
+        }
+        text_list += xCoordinate + zure_x
+        text_list += ","
+        text_list += yCoordinate + zure_y
+        text_list += ","
+        text_list += '"'+field.value+'"'
     }
 });
 
