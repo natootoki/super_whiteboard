@@ -151,9 +151,9 @@ function myFunction() {
     });
     paragraphContainer.textContent = "Hello, html!"
 
-    const paragraph = document.createElement("div");
-    paragraph.textContent = field.value;
-    paragraphContainer.appendChild(paragraph);
+    // 改行
+    var br = document.createElement("br");
+    paragraphContainer.appendChild(br);
     
     // ファイルインポート用
     const fileset = document.createElement("input");
