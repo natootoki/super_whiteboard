@@ -19,6 +19,9 @@ let filerecord = "";
 
 let text_list = "";
 
+let para_ini = "para";
+let para_id = 0;
+
 const selectFile = () => {
     // FileListオブジェクト取得
     const selectFiles = document.querySelector("#select-file").files
@@ -41,6 +44,8 @@ const selectFile = () => {
             const paragraphContainer = document.getElementById("paragraphContainer");
             const paragraph = document.createElement("span");
             paragraph.textContent = item.split(",").slice(2).join(",").slice(1, -1);
+            para_id += 1;
+            paragraph.id = para_ini + para_id;
             paragraphContainer.appendChild(paragraph);
     
             // スタイルを設定して位置を指定
@@ -77,7 +82,6 @@ function OnButtonClick() {
     let mi = ("00" + (dt.getMinutes())).slice(-2);
     let s = ("00" + (dt.getSeconds())).slice(-2);
     let result = y + m + d + h + mi + s;
-
 
     link.download = 'filename'+result+'.txt';
 
@@ -168,6 +172,8 @@ document.addEventListener("keydown", function(event) {
         const paragraphContainer = document.getElementById("paragraphContainer");
         const paragraph = document.createElement("span");
         paragraph.textContent = field.value;
+        para_id += 1;
+        paragraph.id = para_ini + para_id;
         paragraphContainer.appendChild(paragraph);
 
         // スタイルを設定して位置を指定
