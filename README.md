@@ -1,6 +1,9 @@
 # super_whiteboard
 真っ白なページの中に自由に文字を
 
+GitHub Pages
+https://natootoki.github.io/super_whiteboard/
+
 # やりたいこと
 ・spanタグの削除、編集を画面上でできるようにしたい
 
